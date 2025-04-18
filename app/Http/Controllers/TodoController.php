@@ -4,14 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Todo;
+
 class TodoController extends Controller
 {
+
+    public static function middleware(): array
+    {
+        return [
+            'auth',
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $todos = Todo::select('deadline', 'title', 'is_finished', 'created_at')->get();
+
+        dd($todos);
     }
 
     /**

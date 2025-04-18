@@ -17,12 +17,12 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('index')">
+                    <x-nav-link :href="route('list')" :active="request()->routeIs('list')">
                         Todo一覧
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('finished')">
+                    <x-nav-link :href="route('finished')" :active="request()->routeIs('finished')">
                         完了済みTodo一覧
                     </x-nav-link>
                 </div>
