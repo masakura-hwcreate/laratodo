@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Todo;
 use Illuminate\Contracts\View\View;
@@ -26,6 +27,7 @@ class TodosController extends Controller
     {
         // $todos = Todo::all();
         $todos = Todo::select('id', 'deadline', 'title', 'is_finished', 'created_at')
+            ->where('user_id', Auth::id())
             ->where('is_finished', 0)
             ->orderBy('deadline', 'asc')
             ->get();
@@ -46,7 +48,20 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $request->validate([
+            'deadline' => ['required', 'string', 'max:10'],
+            'is_finished' => ['required', 'boolean'],
+            'title' => ['required', 'string', 'max:30'],
+        ]);
+
+        Todo::create([
+            'user_id' => Auth::id(),
+            'deadline' => $request->deadline,
+            'is_finished' => $request->is_finished,
+            'title' => $request->title,
+        ]);
+
+        return redirect()->route('todos.index');
     }
 
     /**
