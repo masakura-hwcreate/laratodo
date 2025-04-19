@@ -27,6 +27,7 @@ class TodosController extends Controller
         // $todos = Todo::all();
         $todos = Todo::select('id', 'deadline', 'title', 'is_finished', 'created_at')
             ->where('is_finished', 0)
+            ->orderBy('deadline', 'asc')
             ->get();
 
         return view('todos.index', compact('todos'));
