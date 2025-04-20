@@ -20,12 +20,13 @@ class TodosController extends Controller
         ];
     }
 
+ 
+
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        // $todos = Todo::all();
         $todos = Todo::select('id', 'deadline', 'title', 'is_finished', 'created_at')
             ->where('user_id', Auth::id())
             ->where('is_finished', 0)
@@ -103,6 +104,31 @@ class TodosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Todo::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('todos.index');
     }
+
+    // public function finished(): View
+    // {
+    //     $todos = Todo::select('id', 'deadline', 'title', 'is_finished', 'created_at')
+    //         ->where('user_id', Auth::id())
+    //         ->where('is_finished', 1)
+    //         ->get();
+
+    //     return view('todos.finished', compact('todos'));
+    // }
+
+    public function finished()
+    {
+
+        $todos = Todo::select('id', 'deadline', 'title', 'is_finished', 'created_at')
+                ->where('user_id', Auth::id())
+                ->where('is_finished', 1)
+                ->get();
+
+            return view('todos.finished', compact('todos'));
+    }
+
 }

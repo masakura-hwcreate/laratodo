@@ -21,11 +21,11 @@
                         Todo一覧
                     </x-nav-link>
                 </div>
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('finished')" :active="request()->routeIs('finished')">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('todos.finished')" :active="request()->routeIs('todos.finished')">
                         完了済みTodo一覧
                     </x-nav-link>
-                </div> --}}
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

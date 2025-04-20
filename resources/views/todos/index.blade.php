@@ -16,21 +16,29 @@
                         <div class="-my-8 divide-y-2 divide-gray-100">
                         @foreach ($todos as $todo)
                             <div class="py-8 flex flex-wrap md:flex-nowrap">
-                                <div class="md:w-40 md:mb-0 mr-6 mb-6 flex-shrink-0 flex flex-col">
+                                <div class="md:w-44 md:mb-0 mr-6 mb-6 flex-shrink-0 flex flex-col">
                                     @if ($todo->is_finished)
                                         <span class="text-center text-white bg-indigo-500 border-0 py-2 px-8 rounded text-lg">完了</span>
                                     @else
                                         <span class="text-center text-white bg-red-400 border-0 py-2 px-8 rounded text-lg">未完了</span>
                                     @endif
                                     <div class="flex">
-                                        <span class="text-l font-medium text-gray-900 title-font mb-2">期限：</span>
-                                        <span class="text-l font-medium text-gray-900 title-font mb-2">{{ $todo->deadline->format('Y/m/d') }}</span>
+                                        <span class="text-xl font-medium text-gray-900 title-font mb-2">期限：</span>
+                                        <span class="text-xl font-medium text-gray-900 title-font mb-2">{{ $todo->deadline->format('Y/m/d') }}</span>
                                     </div>
                                 </div>
+                                <a href="{{ route('todos.edit', ['todo' => $todo->id]) }}" class="md:flex-grow text-2xl font-medium text-gray-900 title-font mb-2">
+                                    {{ $todo->title }}
+                                </a>
                                 <div class="md:flex-grow">
-                                    <a href="{{ route('todos.edit', ['todo' => $todo->id]) }}" class="text-2xl font-medium text-gray-900 title-font mb-2">{{ $todo->title }}</a>
+                                    <form method="POST" action="{{ route('todos.destroy', ['todo' => $todo->id]) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="mt-8 mr-8 text-white bg-blue-500 border-0 py-2 px-8 focus:outline-none hover:bg-blue-600 rounded text-lg">削除</button>
+                                    </form>
                                 </div>
                             </div>
+                            
                         @endforeach
                         </div>
                     </div>
